@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ジム・フィットネス選び診断 - 目的・予算別おすすめジムを無料診断</title>
+<meta name="description" content="5つの質問で、ダイエット・筋トレ・健康維持など目的別に最適なジムタイプを診断。月額予算・通える頻度からパーソナルジムや大型フィットネスを提案します。">
+<meta property="og:title" content="ジム・フィットネス選び診断 | 目的・予算別おすすめジムを無料診断">
+<meta property="og:description" content="5問でパーソナルジム・フィットネスクラブ・24時間ジムなど最適タイプを診断。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://appadaycreator.github.io/gym-finder/">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TXQGZRF9');</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8427583028015858" crossorigin="anonymous"></script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","s3t9vl8h3v");</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 50%, #fb923c 100%); min-height: 100vh; }
+  .card { background: white; border-radius: 1rem; box-shadow: 0 4px 24px rgba(0,0,0,0.09); }
+  .btn-primary { background: #ea580c; color: white; border: none; border-radius: 0.75rem; padding: 0.875rem 2rem; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.2s; width: 100%; display: block; }
+  .btn-primary:hover { background: #c2410c; transform: translateY(-1px); }
+  .option-btn { border: 2px solid #e5e7eb; border-radius: 0.75rem; padding: 0.875rem 1rem; cursor: pointer; transition: all 0.2s; background: white; width: 100%; text-align: left; margin-bottom: 0.625rem; font-size: 0.95rem; }
+  .option-btn:hover, .option-btn.selected { border-color: #ea580c; background: #fff7ed; font-weight: 600; }
+  .screen { display: none; }
+  .screen.active { display: block; }
+  .progress-track { background: #fed7aa; border-radius: 9999px; height: 8px; }
+  .progress-bar { background: #ea580c; height: 8px; border-radius: 9999px; transition: width 0.4s ease; }
+</style>
+</head>
+<body class="font-sans">
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXQGZRF9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div class="max-w-lg mx-auto px-4 py-10">
+
+  <div id="screen-intro" class="screen active">
+    <div class="text-center mb-8">
+      <div class="text-6xl mb-4">💪</div>
+      <h1 class="text-2xl font-bold text-gray-800 mb-2">ジム・フィットネス選び診断</h1>
+      <p class="text-gray-600 text-sm">目的・予算・頻度から<br>あなたに最適なジムタイプを診断します</p>
+    </div>
+    <div class="card p-6 mb-6 space-y-4">
+      <div class="flex items-center gap-3">
+        <div class="text-2xl">🎯</div>
+        <div><div class="font-bold text-gray-800 text-sm">目的別診断</div><div class="text-orange-600 text-sm">ダイエット・筋トレ・健康維持など</div></div>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="text-2xl">💰</div>
+        <div><div class="font-bold text-gray-800 text-sm">予算別おすすめ</div><div class="text-gray-600 text-sm">月5,000円〜30,000円の選択肢を比較</div></div>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="text-2xl">🏋️</div>
+        <div><div class="font-bold text-gray-800 text-sm">ジムタイプ解説</div><div class="text-gray-600 text-sm">パーソナル・24時間・フィットネスクラブ等</div></div>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="startDiagnosis()">ジムを診断する →</button>
+    <p class="text-center text-xs text-gray-500 mt-3">個人情報は一切収集しません</p>
+  </div>
+
+  <div id="screen-questions" class="screen">
+    <div class="mb-6">
+      <div class="flex justify-between text-xs text-gray-500 mb-1">
+        <span id="q-label">質問 1 / 5</span>
+        <span id="q-pct">20%</span>
+      </div>
+      <div class="progress-track"><div class="progress-bar" id="prog" style="width:20%"></div></div>
+    </div>
+    <div class="card p-6">
+      <h2 class="text-lg font-bold text-gray-800 mb-5" id="q-text"></h2>
+      <div id="opts"></div>
+    </div>
+  </div>
+
+  <div id="screen-loading" class="screen text-center py-20">
+    <div class="text-5xl mb-4">💪</div>
+    <div class="text-gray-700 font-bold text-lg mb-2">診断中...</div>
+    <div class="text-gray-500 text-sm">最適なジムタイプを分析しています</div>
+  </div>
+
+  <div id="screen-results" class="screen">
+    <div class="text-center mb-6">
+      <div class="text-5xl mb-3">🏆</div>
+      <h2 class="text-xl font-bold text-gray-800">診断結果</h2>
+    </div>
+    <div class="card p-6 mb-4">
+      <div class="text-center mb-4">
+        <div class="text-3xl mb-2" id="res-emoji">🏋️</div>
+        <div class="text-xl font-bold text-orange-600" id="res-type"></div>
+        <div class="text-sm text-gray-500 mt-1" id="res-cost"></div>
+      </div>
+      <p class="text-sm text-gray-600 mb-3" id="res-desc"></p>
+      <div class="bg-orange-50 rounded-lg p-3 text-sm text-gray-700" id="res-merit"></div>
+    </div>
+    <div class="card p-6 mb-4">
+      <h3 class="font-bold text-gray-800 mb-3">🎯 おすすめサービス</h3>
+      <div id="affiliate-area"></div>
+    </div>
+    <button class="btn-primary" style="background:#6b7280;" onclick="restart()">もう一度診断する</button>
+  </div>
+
+</div>
+
+<script>
+var Qs = [
+  { text:"運動の主な目的は？", opts:["ダイエット・体型改善","筋肉をつけたい（筋トレ）","健康維持・体力づくり","競技力向上・スポーツ上達"], key:"goal" },
+  { text:"現在の運動経験は？", opts:["ほぼ未経験（これから始める）","少し経験あり","ある程度継続してきた","かなり経験がある"], key:"exp" },
+  { text:"月額予算は？", opts:["〜5,000円","5,000〜15,000円","15,000〜30,000円","30,000円以上"], key:"budget" },
+  { text:"週に通える頻度は？", opts:["週1回","週2〜3回","週4回以上","毎日でも通いたい"], key:"freq" },
+  { text:"最も重視することは？", opts:["コスパ（安く続ける）","トレーナーのサポート","設備・マシンの充実","場所・時間の便利さ"], key:"priority" }
+];
+
+var gymTypes = {
+  personal: { emoji:"🏋️", type:"パーソナルジム", cost:"月15,000〜50,000円", desc:"専任トレーナーが1対1でサポート。短期間での体型変化を求める方に最適。", merit:"✅ 食事指導付き\n✅ モチベーション管理\n✅ 効率的なトレーニング" },
+  fitclub: { emoji:"🏊", type:"フィットネスクラブ", cost:"月7,000〜15,000円", desc:"プール・スタジオ・マシン室が充実した総合型ジム。多彩なプログラムを楽しめます。", merit:"✅ プール・スタジオあり\n✅ 充実した設備\n✅ グループレッスン" },
+  twentyfour: { emoji:"⏰", type:"24時間ジム", cost:"月3,000〜8,000円", desc:"365日24時間いつでも使えるコスパ重視のジム。セルフトレーニング派に最適。", merit:"✅ 低コスト\n✅ 空いている時間に通える\n✅ マシン中心" },
+  sports: { emoji:"🏃", type:"スポーツ特化型（コナミ・ルネサンス等）", cost:"月8,000〜12,000円", desc:"水泳・テニスなどスポーツ施設を備えた総合型。競技力向上にも対応。", merit:"✅ スポーツ施設充実\n✅ コーチプログラムあり\n✅ 家族でも利用可" }
+};
+
+var cur=0,ans={};
+
+function startDiagnosis() { show('questions'); renderQ(); }
+
+function show(name) {
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById('screen-'+name).classList.add('active');
+}
+
+function renderQ() {
+  var q=Qs[cur];
+  var pct=Math.round((cur+1)/Qs.length*100);
+  document.getElementById('q-label').textContent='質問 '+(cur+1)+' / '+Qs.length;
+  document.getElementById('q-pct').textContent=pct+'%';
+  document.getElementById('prog').style.width=pct+'%';
+  document.getElementById('q-text').textContent=q.text;
+  var c=document.getElementById('opts'); c.innerHTML='';
+  q.opts.forEach(function(opt,i){
+    var b=document.createElement('button');
+    b.className='option-btn'; b.textContent=opt;
+    b.onclick=function(){ pick(i,opt,q.key); };
+    c.appendChild(b);
+  });
+}
+
+function pick(i,val,key) {
+  ans[key]={i:i,val:val};
+  document.querySelectorAll('.option-btn').forEach(function(b,j){ b.classList.toggle('selected',j===i); });
+  setTimeout(function(){
+    cur++;
+    if(cur<Qs.length){ renderQ(); } else { show('loading'); setTimeout(showResults,1600); }
+  },300);
+}
+
+function showResults() {
+  var goalIdx=ans.goal?ans.goal.i:0;
+  var budgetIdx=ans.budget?ans.budget.i:1;
+  var priorityIdx=ans.priority?ans.priority.i:0;
+
+  var gymKey;
+  if(priorityIdx===1 || (goalIdx===0 && budgetIdx>=2)) { gymKey='personal'; }
+  else if(budgetIdx===0 || priorityIdx===0) { gymKey='twentyfour'; }
+  else if(goalIdx===3) { gymKey='sports'; }
+  else { gymKey='fitclub'; }
+
+  var gym=gymTypes[gymKey];
+  document.getElementById('res-emoji').textContent=gym.emoji;
+  document.getElementById('res-type').textContent=gym.type;
+  document.getElementById('res-cost').textContent=gym.cost;
+  document.getElementById('res-desc').textContent=gym.desc;
+  document.getElementById('res-merit').innerHTML=gym.merit.replace(/\n/g,'<br>');
+
+  var affArea=document.getElementById('affiliate-area');
+  if(gymKey==='personal') {
+    affArea.innerHTML='<div class="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-2"><div class="font-bold text-orange-800 mb-1">パーソナルジムの無料体験を予約</div><p class="text-xs text-gray-600 mb-3">初回無料カウンセリング実施中。プロトレーナーが食事・運動を徹底サポート。</p><a href="A8_PERSONAL_GYM_URL_PLACEHOLDER" target="_blank" rel="noopener sponsored" class="block text-center bg-orange-500 text-white font-bold py-3 rounded-lg text-sm hover:bg-orange-600 transition">無料体験を予約する →</a></div>';
+  } else {
+    affArea.innerHTML='<div class="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-2"><div class="font-bold text-orange-800 mb-1">近くのジムを探す・入会する</div><p class="text-xs text-gray-600 mb-3">エリア・予算・目的から最適なジムを検索。入会金無料キャンペーンも多数。</p><a href="A8_GYM_URL_PLACEHOLDER" target="_blank" rel="noopener sponsored" class="block text-center bg-orange-500 text-white font-bold py-3 rounded-lg text-sm hover:bg-orange-600 transition">近くのジムを探す →</a></div>';
+  }
+  show('results');
+}
+
+function restart() { cur=0; ans={}; show('intro'); }
+</script>
+</body>
+</html>
